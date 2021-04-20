@@ -7,19 +7,17 @@ logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s
                     level=logging.INFO)
 
 logger = logging.getLogger(__name__)
-TOKEN = '1773231227:AAE7sQ9BW-7mdAmjxNCBXQ8E1UFv0VA9K0o'
+TOKEN = 'Your Token'
 
 PORT = int(os.environ.get('PORT', 80))
 
 lista_hype = ['Che figata!', 'Cazzo durissimo', 'Meglio di Mass Effect', 'Godzilla!', 'Raga ho scaricato la demo di un gioco fighissimo multiplayer tipo Mass Effect']
-lista_ecodado = ['IL CESTINO!', 'Porco dio usa il posacenere', 'Cazzo lo butti nella carta se è plastica']
+lista_ecodado = ['IL CESTINO!', 'Usa il posacenere', 'Cazzo lo butti nella carta se è plastica']
 lista_lol = ['Lollai durissimo', 'LOL', 'AHHAHAHHAHHAHHAHAH']
 lista_lavoro = ['Figa raga proprio stasera, ho un turno di merda', 'No raga sono a pezzi dal lavoro',
                 'Minchia raga non possiamo fare domani sera? Faccio notte']
-lista_bestemmia = ['Porco Dio', 'Vacca Madonna', 'Gesù Infame','Porco dio ho detto che ci sono']
-lista_insulti = ['SACCHI DI CULO','SACCHI DI MERDA']
 
-def dick_pic(update, context):
+def pic(update, context):
     bot = telegram.Bot(token=TOKEN)
     chat_id = update.message.chat_id
     bot.send_photo(chat_id=chat_id, photo=open("Dado bot Temp\Foto CV ceccarelli.jpg", 'rb'))
@@ -39,11 +37,6 @@ def lavoro(update, context):
 def ecodado(update, context):
     update.message.reply_text(random.choice(lista_ecodado))
 
-def insulti(update, context):
-    update.message.reply_text(random.choice(lista_insulti))
-
-def bestemmia(update, context):
-    update.message.reply_text(random.choice(lista_bestemmia))
 
 def error(update, context):
     logger.warning('Update "%s" caused error "%s"', update, context.error)
@@ -60,7 +53,7 @@ def main():
     dp.add_handler(CommandHandler("insulti", insulti))
     dp.add_handler(CommandHandler("bestemmia", bestemmia))
     dp.add_handler(CommandHandler("Random", a_caso))
-    dp.add_handler(CommandHandler("Dickpic", dick_pic))
+    dp.add_handler(CommandHandler("Pic", pic))
 
     dp.add_error_handler(error)
 
