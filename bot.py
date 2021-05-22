@@ -17,13 +17,11 @@ TOKEN = 'Your Token'
 PORT = int(os.environ.get('PORT', 80))
 
 #these are the lists from which the bot randomly choose after your command
-lista_hype = ['Che figata!', 'Cazzo durissimo', 'Meglio di Mass Effect', 'Godzilla!', 'Raga ho scaricato la demo di un gioco fighissimo multiplayer tipo Mass Effect']
-lista_ecodado = ['IL CESTINO!', 'Usa il posacenere', 'Cazzo lo butti nella carta se è plastica']
-lista_lol = ['Lollai durissimo', 'LOL', 'AHHAHAHHAHHAHHAHAH']
-lista_lavoro = ['Figa raga proprio stasera, ho un turno di merda', 'No raga sono a pezzi dal lavoro',
-                'Minchia raga non possiamo fare domani sera? Faccio notte']
+lista_hype = ['Cool', 'SUPER!','Hyped']
+lista_lol = ['LOL', 'AHHAHAHHAHHAHHAHAH']
 
-#this is the basic function to implement the random sending of images
+
+#this is the basic function to implement the random sending of images on your pc or you can take the URL of single images and put every URL in a list and the command would be "photo=open(url_list)
 def pic(update, context):
     bot = telegram.Bot(token=TOKEN)
     chat_id = update.message.chat_id
@@ -31,7 +29,7 @@ def pic(update, context):
 
 #this randomly selects from ALL the lists
 def a_caso(update, context):
-    update.message.reply_text(random.choice(lista_lavoro + lista_hype + lista_ecodado + lista_lol))
+    update.message.reply_text(random.choice(lista_hype + lista_lol))
 
 #here there are the functions differenciated for every command
 
@@ -41,11 +39,6 @@ def hype(update, context):
 def lol(update, context):
     update.message.reply_text(random.choice(lista_lol))
 
-def lavoro(update, context):
-    update.message.reply_text(random.choice(lista_lavoro))
-
-def ecodado(update, context):
-    update.message.reply_text(random.choice(lista_ecodado))
 
 #this is to return the error log
 def error(update, context):
@@ -59,14 +52,12 @@ def main():
 #these are the command handlers
     dp.add_handler(CommandHandler("hype", hype))
     dp.add_handler(CommandHandler("lol", lol))
-    dp.add_handler(CommandHandler("lavoro", lavoro))
-    dp.add_handler(CommandHandler("ecodado", ecodado))
     dp.add_handler(CommandHandler("Random", a_caso))
     dp.add_handler(CommandHandler("Pic", pic))
 
     dp.add_error_handler(error)
 
-#this is the part where it connects to heroku for the deployment
+#this is the part where it connects to heroku for the deployment. APPNAME is what heroku assigns to the app
     updater.start_webhook(listen="0.0.0.0",
                           port=int(PORT),
                           url_path=TOKEN,
